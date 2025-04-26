@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:16:17 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 16:16:22 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:32:56 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	player_position(t_data *data, int x, int y)
 	}
 }
 
-void	free_pointer(void **ptr)
+void	safe_free(void **ptr)
 {
 	if (*ptr)
 	{
@@ -62,10 +62,10 @@ void	free_pointer(void **ptr)
 
 static void	free_paths(t_data *data_struct)
 {
-	free_pointer((void **)&data_struct->no);
-	free_pointer((void **)&data_struct->so);
-	free_pointer((void **)&data_struct->we);
-	free_pointer((void **)&data_struct->ea);
+	safe_free((void **)&data_struct->no);
+	safe_free((void **)&data_struct->so);
+	safe_free((void **)&data_struct->we);
+	safe_free((void **)&data_struct->ea);
 }
 
 static void	free_textures(t_data *data_struct, int i)
@@ -89,16 +89,16 @@ void	free_all(t_data *data_struct, int i)
 	free_paths(data_struct);
 	free_textures(data_struct, i);
 	if (i == 0 && data_struct->map)
-		free_2d_array(data_struct->map);
+		free_array_2d(data_struct->map);
 }
 
 static int	handle_arguments_and_open_file(int ac, char **av, int *fd)
 {
 	if (ac != 2 || (ac == 2 && av[1] && !check_av_path(av[1], ft_strlen(av[1]), 0)))
-		return (ft_putstrn_fd("Error: Invalid arg", 2), 1);
+		return (print_str_fd("Error: Invalid arg", 2), 1);
 	*fd = open(av[1], O_RDONLY);
 	if (*fd < 0)
-		return (ft_putstrn_fd("Error: Unable to open file", 2), 1);
+		return (print_str_fd("Error: Unable to open file", 2), 1);
 	return (0);
 }
 

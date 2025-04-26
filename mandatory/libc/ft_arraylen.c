@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arraylen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kadam <kadam@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:10:55 by kadam             #+#    #+#             */
-/*   Updated: 2024/11/10 20:42:17 by kadam            ###   ########.fr       */
+/*   Updated: 2025/04/26 21:31:51 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	ft_lenarray(char **array)
+int	array_length(char **array)
 {
 	int	i;
 

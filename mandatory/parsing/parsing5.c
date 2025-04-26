@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing5.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 19:47:58 by med-dahr          #+#    #+#             */
+/*   Updated: 2025/04/26 21:51:17 by med-dahr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
-static void	init_data_struct(t_data *data_struct, int i)
+static void	init_textures_and_colors(t_data *data_struct, int i)
 {
 	data_struct->no = NULL;
 	data_struct->so = NULL;
@@ -8,6 +20,10 @@ static void	init_data_struct(t_data *data_struct, int i)
 	data_struct->ea = NULL;
 	while (i < 4)
 		data_struct->textur[i++] = NULL;
+}
+
+static void	init_remaining_data(t_data *data_struct, int i)
+{
 	i = 0;
 	while (i < 3)
 	{
@@ -18,11 +34,16 @@ static void	init_data_struct(t_data *data_struct, int i)
 	data_struct->map = NULL;
 }
 
-int	init_struct(t_data *data_struct, t_helper *helper, int fd)
+static void	init_data_struct(t_data *data_struct, int i)
+{
+	init_textures_and_colors(data_struct, i);
+	init_remaining_data(data_struct, i);
+}
+
+int	init_helper(t_helper *helper, int fd)
 {
 	int	i;
 
-	init_data_struct(data_struct, 0);
 	helper->res = 0;
 	helper->ptr_line = NULL;
 	helper->trim_line = NULL;
@@ -31,6 +52,12 @@ int	init_struct(t_data *data_struct, t_helper *helper, int fd)
 		helper->find[i++] = 0;
 	helper->line = get_next_line(fd);
 	if (helper->line == NULL)
-		return (ft_putstrn_fd("Error: Empty file", 2), 1);
+		return (print_str_fd("Error: Empty file", 2), 1);
 	return (0);
+}
+
+int	init_struct(t_data *data_struct, t_helper *helper, int fd)
+{
+	init_data_struct(data_struct, 0);
+	return (init_helper(helper, fd));
 }

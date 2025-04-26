@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 18:27:54 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 18:27:56 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:51:17 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_file_access(char *str)
 
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		return (ft_putstrn_fd("Error\nInvalid path\n", 2), 1);
+		return (print_str_fd("Error\nInvalid path\n", 2), 1);
 	close(fd);
 	return (0);
 }
@@ -45,12 +45,12 @@ int	final_processing(char *joined_path, char **path, char **split)
 	if (check_av_path(joined_path, 0, 1) == 1)
 	{
 		free(joined_path);
-		free_2d_array(split);
+		free_array_2d(split);
 		return (1);
 	}
 	free(*path);
 	*path = joined_path;
-	free_2d_array(split);
+	free_array_2d(split);
 	return (0);
 }
 
@@ -81,8 +81,8 @@ int	initial_processing(char **str, int i, char *name, char ***split_ptr)
 	*split_ptr = split;
 	if (split[0] && ft_strcmp(split[0], name) != 0)
 	{
-		free_2d_array(split);
-		ft_putstrn_fd("Error\nYOU HAVE TO SET ALL THE PATHS", 2);
+		free_array_2d(split);
+		print_str_fd("Error\nYOU HAVE TO SET ALL THE PATHS", 2);
 		return (1);
 	}
 	return (0);
@@ -133,7 +133,7 @@ static int	load_img(t_data *data)
 	if (load_textures(data))
 	{
 		cleanup_textures(data);
-		return (ft_putstrn_fd("Error\nUnable to load texture\n", 2), 1);
+		return (print_str_fd("Error\nUnable to load texture\n", 2), 1);
 	}
 	return (0);
 }
@@ -161,11 +161,11 @@ int	validate_data(t_data *data_struct)
 	{
 		if (data_struct->f[ac] < 0 || data_struct->f[ac] > 255
 			|| data_struct->c[ac] < 0 || data_struct->c[ac] > 255)
-			return (ft_putstrn_fd("Error\nInvalid color\n", 2), 1);
+			return (print_str_fd("Error\nInvalid color\n", 2), 1);
 		ac++;
 	}
 	if (data_struct->map == NULL)
-		return (ft_putstrn_fd("Error\n: The map is empty", 2), 1);
+		return (print_str_fd("Error\n: The map is empty", 2), 1);
 	return (0);
 }
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kadam <kadam@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 14:31:21 by kadam             #+#    #+#             */
-/*   Updated: 2024/09/04 12:41:39 by kadam            ###   ########.fr       */
+/*   Updated: 2025/04/26 21:32:30 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	free_2d_array(char **array)
+void	free_array_2d(char **array)
 {
 	int	i;
 

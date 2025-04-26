@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:43:06 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 17:43:33 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:50:46 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	check_map_bounds(t_data *data, double y, double x)
 
 	ay = y / SIZE;
 	ax = x / SIZE;
-	if (ay < 0 || ay >= ft_lenarray(data->map) || ax >= _strlen(data->map[ay])
+	if (ay < 0 || ay >= array_length(data->map) || ax >= _strlen(data->map[ay])
 		|| ax < 0)
 		return (-1);
 	return (0);

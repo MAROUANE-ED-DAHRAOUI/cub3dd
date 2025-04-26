@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing2.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/26 18:53:14 by med-dahr          #+#    #+#             */
+/*   Updated: 2025/04/26 21:51:17 by med-dahr         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 static int	check_remaining(int *find, int x)
@@ -5,7 +17,7 @@ static int	check_remaining(int *find, int x)
 	while (x < 6)
 	{
 		if (find[x] != 1)
-			return (ft_putstrn_fd("Error: path or color is invalid", 2),
+			return (print_str_fd("Error: path or color is invalid", 2),
 				1);
 		x++;
 	}
@@ -159,8 +171,8 @@ int read_path_and_color(char *ptr_line, t_data *data_struct)
 
     str = ft_split(ptr_line, "\n");
     if (read_path_color(data_struct, str, 0))
-        return (free_2d_array(str), 1);
-    free_2d_array(str);
+        return (free_array_2d(str), 1);
+    free_array_2d(str);
     return 0;
 }
 

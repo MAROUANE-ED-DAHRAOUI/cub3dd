@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_put.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kadam <kadam@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:10:02 by kadam             #+#    #+#             */
-/*   Updated: 2024/11/10 20:42:57 by kadam            ###   ########.fr       */
+/*   Updated: 2025/04/26 21:32:56 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	ft_putstrn_fd(char *s, int fd)
+void	print_str_fd(char *s, int fd)
 {
 	int	i;
 

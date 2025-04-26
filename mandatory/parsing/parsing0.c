@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 18:28:22 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 18:30:44 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 21:32:56 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int	read_file(int fd, t_helper *helper, int isgood)
 		helper->line = get_next_line(fd);
 	}
 	if (isgood == 0)
-		return (free(helper->line), ft_putstrn_fd("Error: Empty file", 2), 1);
+		return (free(helper->line), print_str_fd("Error: Empty file", 2), 1);
 	return (0);
 }
