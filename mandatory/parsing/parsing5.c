@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 19:47:58 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 21:51:17 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:07:49 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	init_helper(t_helper *helper, int fd)
 	return (0);
 }
 
-int	init_struct(t_data *data_struct, t_helper *helper, int fd)
+int	 initialize_data(t_data *data_struct, t_helper *helper, int fd)
 {
 	init_data_struct(data_struct, 0);
 	return (init_helper(helper, fd));

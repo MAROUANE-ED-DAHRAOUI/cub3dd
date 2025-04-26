@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 18:53:07 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 21:51:17 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:05:54 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int	store_color_values(int *map_color, char **split)
 	return (free_array_2d(split), 0);
 }
 
-int	process_color(int *map_color, char *str, char *name)
+int	parse_color(int *map_color, char *str, char *name)
 {
 	char	**split;
 

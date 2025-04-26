@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:16:17 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 21:32:56 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:08:29 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	free_all(t_data *data_struct, int i)
 
 static int	handle_arguments_and_open_file(int ac, char **av, int *fd)
 {
-	if (ac != 2 || (ac == 2 && av[1] && !check_av_path(av[1], ft_strlen(av[1]), 0)))
+	if (ac != 2 || (ac == 2 && av[1] && ! validate_path(av[1], ft_strlen(av[1]), 0)))
 		return (print_str_fd("Error: Invalid arg", 2), 1);
 	*fd = open(av[1], O_RDONLY);
 	if (*fd < 0)
@@ -104,7 +104,7 @@ static int	handle_arguments_and_open_file(int ac, char **av, int *fd)
 
 static int	validate_and_init_map(int fd, t_data *map_struct)
 {
-	if (check_all(2, map_struct, fd))
+	if ( validate_inputs(2, map_struct, fd))
 		return (close(fd), free_all(map_struct, 0), 1);
 	close(fd);
 	free_all(map_struct, 1);

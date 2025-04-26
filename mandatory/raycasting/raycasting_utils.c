@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:43:06 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 21:50:46 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:09:40 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,27 +109,27 @@ void	calculate_drawing_boundaries(double line_height, double *top, double *bot, 
 }
 
 uint32_t	get_texture_pixel_color(t_data *data, t_rays rays, double top, 
-								double j, double line_height, int tex_indexx)
+								double j, double line_height, int  get_texture_indexx)
 {
 	double	tex_y;
 	
-	tex_y = ((top - j) / line_height) * data->textur[tex_indexx]->height;
-	return (get_color(data, rays, tex_y, tex_indexx));
+	tex_y = ((top - j) / line_height) * data->textur[ get_texture_indexx]->height;
+	return ( sample_texture(data, rays, tex_y,  get_texture_indexx));
 }
 
 void	draw_3d(t_data *data, double line_height, double i, t_rays rays)
 {
 	double	top;
 	double	bot;
-	int		tex_indexx;
+	int		 get_texture_indexx;
 	double	j;
 
-	tex_indexx = tex_index(rays.dis_h, rays.dis_v, rays.rayangle);
+	 get_texture_indexx =  get_texture_index(rays.dis_h, rays.dis_v, rays.rayangle);
 	calculate_drawing_boundaries(line_height, &top, &bot, &j);
 	while (top < bot)
 	{
 		mlx_put_pixel(data->image, i, top, 
-			get_texture_pixel_color(data, rays, top, j, line_height, tex_indexx));
+			get_texture_pixel_color(data, rays, top, j, line_height,  get_texture_indexx));
 		top++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:12:37 by kadam             #+#    #+#             */
-/*   Updated: 2025/04/26 21:40:58 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:09:40 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,21 @@ char		*_strjoin(char *s1, char *s2);
 int			_strlen(char *str);
 
 /*                    parsing                      */
-int			process_color(int *data_color, char *str, char *name);
+int			parse_color(int *data_color, char *str, char *name);
 int			process_line(char *c, char **ptr_line, int *find);
-int			read_map(char *line, int fd, t_data *data_struct, char *ptr_line);
-int			process_path(char **str, int i, char *name, char **path);
-int			read_file(int fd, t_helper *helper, int x);
-int			init_struct(t_data *data_struct, t_helper *helper, int fd);
-int			check_all(int ac, t_data *data_struct, int fd);
-int			check_av_path(char *str, int len, int index);
+int			 load_map(char *line, int fd, t_data *data_struct, char *ptr_line);
+int			 parse_path(char **str, int i, char *name, char **path);
+int			 load_file(int fd, t_helper *helper, int x);
+int			 initialize_data(t_data *data_struct, t_helper *helper, int fd);
+int			 validate_inputs(int ac, t_data *data_struct, int fd);
+int			 validate_path(char *str, int len, int index);
 
 /*					texturing					*/
 
-void		draw_f_c(t_data *data);
-uint32_t	get_color(t_data *data, t_rays rays, double tex_y,
+void		 draw_floor_ceiling(t_data *data);
+uint32_t	 sample_texture(t_data *data, t_rays rays, double tex_y,
 				int texture_index);
-int			tex_index(t_dis_h dis_h, t_dis_v dis_v, double rayangle);
+int			 get_texture_index(t_dis_h dis_h, t_dis_v dis_v, double rayangle);
 
 /*                      utils                   */
 void		check_map(t_data *s_map);

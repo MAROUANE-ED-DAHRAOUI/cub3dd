@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:16:31 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 16:26:59 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:09:40 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_floor(t_data *data)
 	}
 }
 
-void	draw_f_c(t_data *data)
+void	 draw_floor_ceiling(t_data *data)
 {
 	draw_ceiling(data);
 	draw_floor(data);
@@ -73,7 +73,7 @@ int	handle_horizontal_case(double rayangle)
 		return (0);
 }
 
-int	tex_index(t_dis_h dis_h, t_dis_v dis_v, double rayangle)
+int	 get_texture_index(t_dis_h dis_h, t_dis_v dis_v, double rayangle)
 {
 	if (dis_v.inter_type_v == 'V')
 		return (handle_vertical_case(rayangle));
@@ -124,7 +124,7 @@ uint32_t	get_pixel_color(t_data *data, double tex_x, double tex_y,
 	return (colorr(&data->textur[texture_index]->pixels[index]));
 }
 
-uint32_t	get_color(t_data *data, t_rays rays, double tex_y,
+uint32_t	 sample_texture(t_data *data, t_rays rays, double tex_y,
 		int texture_index)
 {
 	double	tex_x;

@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 18:53:14 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 21:51:17 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:07:07 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ static int	process_west_east(char **str, int i, t_data *data_struct)
 {
 	if (str[i][0] == 'W')
 	{
-		if (process_path(str, i, "WE", &(data_struct->we)))
+		if ( parse_path(str, i, "WE", &(data_struct->we)))
 			return (1);
 	}
 	else if (str[i][0] == 'E')
 	{
-		if (process_path(str, i, "EA", &(data_struct->ea)))
+		if ( parse_path(str, i, "EA", &(data_struct->ea)))
 			return (1);
 	}
 	return (0);
@@ -95,18 +95,18 @@ static int	process_north_south(char **str, int i, t_data *data_struct)
 {
 	if (str[i][0] == 'N')
 	{
-		if (process_path(str, i, "NO", &(data_struct->no)))
+		if ( parse_path(str, i, "NO", &(data_struct->no)))
 			return (1);
 	}
 	else if (str[i][0] == 'S')
 	{
-		if (process_path(str, i, "SO", &(data_struct->so)))
+		if ( parse_path(str, i, "SO", &(data_struct->so)))
 			return (1);
 	}
 	return (0);
 }
 
-static int	process_path_wrapper(char **str, int i, t_data *data_struct)
+static int	 parse_path_wrapper(char **str, int i, t_data *data_struct)
 {
 	if (process_north_south(str, i, data_struct))
 		return (1);
@@ -119,12 +119,12 @@ static int	process_non_direction(t_data *data_struct, char *str_i)
 {
 	if (str_i[0] == 'F')
 	{
-		if (process_color(data_struct->f, str_i, "F"))
+		if (parse_color(data_struct->f, str_i, "F"))
 			return (1);
 	}
 	else if (str_i[0] == 'C')
 	{
-		if (process_color(data_struct->c, str_i, "C"))
+		if (parse_color(data_struct->c, str_i, "C"))
 			return (1);
 	}
 	return (0);
@@ -134,7 +134,7 @@ static int	read_path_color(t_data *data_struct, char **str, int i)
 {
 	while (str[i] && i <= 5)
 	{
-		if (process_path_wrapper(str, i, data_struct))
+		if ( parse_path_wrapper(str, i, data_struct))
 			return (1);
 		else if (str[i][0] != 'N' && str[i][0] != 'S' && str[i][0] != 'W'
 				&& str[i][0] != 'E')
@@ -147,7 +147,7 @@ static int	read_path_color(t_data *data_struct, char **str, int i)
 	return (0);
 }
 
-int read_map_data(char *line, int fd, t_data *data_struct)
+int  load_map_data(char *line, int fd, t_data *data_struct)
 {
     char *tmp;
 
@@ -176,9 +176,9 @@ int read_path_and_color(char *ptr_line, t_data *data_struct)
     return 0;
 }
 
-int read_map(char *line, int fd, t_data *data_struct, char *ptr_line)
+int  load_map(char *line, int fd, t_data *data_struct, char *ptr_line)
 {
     if (read_path_and_color(ptr_line, data_struct))
         return 1;
-    return read_map_data(line, fd, data_struct);
+    return  load_map_data(line, fd, data_struct);
 }

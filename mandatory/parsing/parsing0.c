@@ -6,13 +6,13 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 18:28:22 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 21:32:56 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:07:29 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	read_file(int fd, t_helper *helper, int isgood)
+int	 load_file(int fd, t_helper *helper, int isgood)
 {
 	while (helper->line != NULL)
 	{

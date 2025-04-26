@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 18:27:54 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 21:51:17 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:08:29 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_file_extension(char *str, int len)
 	return (0);
 }
 
-int	check_av_path(char *str, int len, int index)
+int	 validate_path(char *str, int len, int index)
 {
 	if (index == 0)
 		return (check_file_extension(str, len));
@@ -42,7 +42,7 @@ int	check_av_path(char *str, int len, int index)
 
 int	final_processing(char *joined_path, char **path, char **split)
 {
-	if (check_av_path(joined_path, 0, 1) == 1)
+	if ( validate_path(joined_path, 0, 1) == 1)
 	{
 		free(joined_path);
 		free_array_2d(split);
@@ -88,7 +88,7 @@ int	initial_processing(char **str, int i, char *name, char ***split_ptr)
 	return (0);
 }
 
-int	process_path(char **str, int i, char *name, char **path)
+int	 parse_path(char **str, int i, char *name, char **path)
 {
 	char	**split;
 	char	*joined_path;
@@ -142,11 +142,11 @@ int	init_and_read(int fd, t_data *data_struct)
 {
 	t_helper	helper;
 
-	if (init_struct(data_struct, &helper, fd))
+	if ( initialize_data(data_struct, &helper, fd))
 		return (1);
-	if (read_file(fd, &helper, 0))
+	if ( load_file(fd, &helper, 0))
 		return (1);
-	if (read_map(helper.line, fd, data_struct, helper.ptr_line))
+	if ( load_map(helper.line, fd, data_struct, helper.ptr_line))
 		return (free(helper.ptr_line), free(helper.line), 1);
 	free(helper.ptr_line);
 	return (0);
@@ -169,7 +169,7 @@ int	validate_data(t_data *data_struct)
 	return (0);
 }
 
-int	check_all(int ac, t_data *data_struct, int fd)
+int	 validate_inputs(int ac, t_data *data_struct, int fd)
 {
 	(void)ac;
 	if (init_and_read(fd, data_struct))
