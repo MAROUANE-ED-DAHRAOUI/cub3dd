@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 12:12:37 by kadam             #+#    #+#             */
-/*   Updated: 2025/04/26 22:09:40 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:20:50 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,25 @@ uint32_t	 sample_texture(t_data *data, t_rays rays, double tex_y,
 int			 get_texture_index(t_dis_h dis_h, t_dis_v dis_v, double rayangle);
 
 /*                      utils                   */
-void		check_map(t_data *s_map);
-char		**copy_arr(char **array);
-void		put_err(char *str, t_data *s_map);
-void		free_all(t_data *data_struct, int i);
+void		validate_map(t_data *s_map);
+char		**duplicate_array(char **array);
+void		error_exit(char *str, t_data *s_map);
+void		 cleanup(t_data *data_struct, int i);
 
 /*				check_utils						*/
-int			valid_char(char **arr, t_data *s_map);
-int			found_zero_index(char **arr, t_data *s_map);
-int			valid_path(char **data, int y, int x);
-void		key_hook(t_data *data);
-void		start_key_hook(void *param);
+int			validate_map_char(char **arr, t_data *s_map);
+int			find_zero_position(char **arr, t_data *s_map);
+int			is_valid_path(char **data, int y, int x);
+void		handle_input(t_data *data);
+void		init_input_handler(void *param);
 
 /*					raycasting					*/
-void		start_raycasting(t_data *data, int i, double y);
-int			check_ray(t_data *data, double y, double x);
-double		cal_dis(double xp, double yp, double x, double y);
-int			check_pos(t_data *data, double py, double px, double num_pix);
-void		draw_3d(t_data *data, double line_height, double i, t_rays rays);
-void		start_drawing(void *ptr);
-double		ft_normalize(double angle);
+void		cast_rays(t_data *data, int i, double y);
+int			is_ray_blocked(t_data *data, double y, double x);
+double		ft_calculate_distance(double xp, double yp, double x, double y);
+int			is_valid_position(t_data *data, double py, double px, double num_pix);
+void		render_wall(t_data *data, double line_height, double i, t_rays rays);
+void		render_scene(void *ptr);
+double		normalize_angle(double angle);
 
 #endif

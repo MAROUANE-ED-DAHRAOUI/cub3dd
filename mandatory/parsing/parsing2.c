@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 18:53:14 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 22:07:07 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:11:49 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int  load_map_data(char *line, int fd, t_data *data_struct)
     {
         tmp = _strjoin(tmp, line);
         if (tmp == NULL)
-            put_err("Error: Invalid map", data_struct);
+            error_exit("Error: Invalid map", data_struct);
         free(line);
         line = get_next_line(fd);
     }

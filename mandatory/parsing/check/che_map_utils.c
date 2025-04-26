@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 20:13:31 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 21:31:51 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:13:48 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_adjacent_cells(char **map, int y, int x)
 	return (0);
 }
 
-int	valid_path(char **map, int y, int x)
+int	is_valid_path(char **map, int y, int x)
 {
 	if (check_borders(map, y, x) == -1)
 		return (-1);
@@ -69,7 +69,7 @@ int	scan_row(char **arr, int y, t_data *data)
 	return (0);
 }
 
-int	found_zero_index(char **arr, t_data *data)
+int	find_zero_position(char **arr, t_data *data)
 {
 	int	y;
 
@@ -99,7 +99,7 @@ int	check_duplicate_directions(char **arr, t_data *data)
 			if (ft_strchr("WESN", arr[y][x]) && is_exist == true)
 				is_exist = false;
 			else if (ft_strchr("WESN", arr[y][x]) && is_exist == false)
-				put_err("Error: Multiple directions.", data);
+				error_exit("Error: Multiple directions.", data);
 			x++;
 		}
 		y++;
@@ -114,7 +114,7 @@ int	validate_direction_existence(bool is_exist)
 	return (0);
 }
 
-int	valid_char(char **arr, t_data *data)
+int	validate_map_char(char **arr, t_data *data)
 {
 	bool	is_exist;
 

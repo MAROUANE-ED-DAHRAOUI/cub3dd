@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 19:54:14 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 19:58:48 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:19:29 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	handle_player_actions(t_data *data)
 		data->player.angle += 2 * M_PI;
 }
 
-void	key_hook(t_data *data)
+void	handle_input(t_data *data)
 {
 	double	new_px;
 	double	new_py;
@@ -71,16 +71,16 @@ void	key_hook(t_data *data)
 	
 	handle_player_actions(data);
 	
-	if (check_pos(data, new_py, new_px, 4) == 0)
+	if (is_valid_position(data, new_py, new_px, 4) == 0)
 	{
 		data->player.px = new_px;
 		data->player.py = new_py;
 	}
 }
-void	start_key_hook(void *param)
+void	init_input_handler(void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
-	key_hook(data);
+	handle_input(data);
 }

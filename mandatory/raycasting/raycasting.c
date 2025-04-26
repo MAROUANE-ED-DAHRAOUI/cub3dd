@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:28:44 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 17:16:59 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:20:50 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	find_hrz_wall_collision(t_data *data, t_dis_h *dis_h, double angle, double 
 {
 	while (1)
 	{
-		if (check_ray(data, dis_h->y_h, dis_h->x_h) == -1)
+		if (is_ray_blocked(data, dis_h->y_h, dis_h->x_h) == -1)
 			break ;
 		dis_h->y_h += ya;
 		dis_h->x_h += ya / tan(angle);
@@ -46,7 +46,7 @@ double	distance_hrz(t_data *data, t_dis_h *dis_h, double angle)
 
 	init_hrz_intersection(data, dis_h, angle, &ya);
 	find_hrz_wall_collision(data, dis_h, angle, ya);
-	hdis = cal_dis(data->player.px, data->player.py, dis_h->x_h, dis_h->y_h);
+	hdis = ft_calculate_distance(data->player.px, data->player.py, dis_h->x_h, dis_h->y_h);
 	return (hdis);
 }
 
@@ -69,7 +69,7 @@ static void	cast_vertical_ray(t_data *data, t_dis_v *dis_v, double angle, double
 	dis_v->y_v = data->player.py + (dis_v->x_v - data->player.px) * tan(angle);
 	while (1)
 	{
-		if (check_ray(data, dis_v->y_v, dis_v->x_v) == -1)
+		if (is_ray_blocked(data, dis_v->y_v, dis_v->x_v) == -1)
 			break ;
 		dis_v->x_v += xa;
 		dis_v->y_v += xa * tan(angle);
@@ -83,7 +83,7 @@ double	distance_vrt(t_data *data, t_dis_v *dis_v, double angle)
 
 	calculate_initial_x(data, dis_v, angle, &xa);
 	cast_vertical_ray(data, dis_v, angle, xa);
-	vdis = cal_dis(data->player.px, data->player.py, dis_v->x_v, dis_v->y_v);
+	vdis = ft_calculate_distance(data->player.px, data->player.py, dis_v->x_v, dis_v->y_v);
 	return (vdis);
 }
 
@@ -134,7 +134,7 @@ void	calculate_ray(t_data *data, t_rays *ray, double rayangle, double *dis)
 	ray->rayangle = rayangle;
 }
 
-void	start_raycasting(t_data *data, int i, double dis)
+void	cast_rays(t_data *data, int i, double dis)
 {
 	double	rayangle;
 	double	angle;
@@ -144,10 +144,10 @@ void	start_raycasting(t_data *data, int i, double dis)
 	init_raycasting(data, &rayangle, &angle, &rays);
 	while (i < WIDTH)
 	{
-		rayangle = ft_normalize(rayangle);
+		rayangle = normalize_angle(rayangle);
 		calculate_ray(data, &rays[i], rayangle, &dis);
 		line_height = (SIZE / dis) * (WIDTH / 2) / tan(FOV / 2);
-		draw_3d(data, line_height, i, rays[i]);
+		render_wall(data, line_height, i, rays[i]);
 		rayangle += angle;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 20:09:57 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 21:32:30 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:13:48 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	floodfill_check(char **map, int row, int col)
 		return (0);
 	if (map[row][col] != '1')
 	{
-		if (valid_path(map, row, col) == -1)
+		if (is_valid_path(map, row, col) == -1)
 			return (-1);
 	}
 	return (1);
@@ -83,32 +83,32 @@ static int	check_chars(t_data *data)
 
 void	check_map_chars(t_data *data)
 {
-	if (valid_char(data->map, data) == -1)
-		put_err("Error: No direction in the map.", data);
+	if (validate_map_char(data->map, data) == -1)
+		error_exit("Error: No direction in the map.", data);
 	if (check_player_pos(data))
-		put_err("Error: Player position is invalid", data);
+		error_exit("Error: Player position is invalid", data);
 	if (check_chars(data))
-		put_err("Error: Invalid character in the map", data);
+		error_exit("Error: Invalid character in the map", data);
 }
 
 void	check_map_floodfill(t_data *data, char **cpy_arr)
 {
-	while (found_zero_index(cpy_arr, data))
+	while (find_zero_position(cpy_arr, data))
 	{
 		if (floodfill(cpy_arr, data->player.y, data->player.x))
 		{
 			free_array_2d(cpy_arr);
-			put_err("Error: Invalid map", data);
+			error_exit("Error: Invalid map", data);
 		}
 	}
 }
 
-void	check_map(t_data *data)
+void	validate_map(t_data *data)
 {
 	char	**cpy_arr;
 
 	check_map_chars(data);
-	cpy_arr = copy_arr(data->map);
+	cpy_arr = duplicate_array(data->map);
 	check_map_floodfill(data, cpy_arr);
 	free_array_2d(cpy_arr);
 }

@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 17:43:06 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 22:09:40 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:19:54 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_horizontal(t_data *data, double py, double px, double num_pix)
 	return (0);
 }
 
-int	check_pos(t_data *data, double py, double px, double num_pix)
+int	is_valid_position(t_data *data, double py, double px, double num_pix)
 {
 	if (check_vertical(data, py, px, num_pix) == -1)
 		return (-1);
@@ -51,7 +51,7 @@ int	check_pos(t_data *data, double py, double px, double num_pix)
 	return (0);
 }
 
-double	cal_dis(double xp, double yp, double x, double y)
+double	ft_calculate_distance(double xp, double yp, double x, double y)
 {
 	double	dx;
 	double	dy;
@@ -86,11 +86,11 @@ int	check_wall_collision(t_data *data, double y, double x)
 	return (0);
 }
 
-int	check_ray(t_data *data, double y, double x)
+int	is_ray_blocked(t_data *data, double y, double x)
 {
 	if (check_map_bounds(data, y, x) == -1)
 		return (-1);
-	if (check_pos(data, y, x, 0.000001) == -1)
+	if (is_valid_position(data, y, x, 0.000001) == -1)
 		return (-1);
 	if (check_wall_collision(data, y, x) == -1)
 		return (-1);
@@ -117,7 +117,7 @@ uint32_t	get_texture_pixel_color(t_data *data, t_rays rays, double top,
 	return ( sample_texture(data, rays, tex_y,  get_texture_indexx));
 }
 
-void	draw_3d(t_data *data, double line_height, double i, t_rays rays)
+void	render_wall(t_data *data, double line_height, double i, t_rays rays)
 {
 	double	top;
 	double	bot;

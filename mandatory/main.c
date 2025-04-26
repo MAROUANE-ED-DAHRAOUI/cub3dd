@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:16:17 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 22:08:29 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:20:26 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	free_textures(t_data *data_struct, int i)
 	}
 }
 
-void	free_all(t_data *data_struct, int i)
+void	 cleanup(t_data *data_struct, int i)
 {
 	free_paths(data_struct);
 	free_textures(data_struct, i);
@@ -105,21 +105,21 @@ static int	handle_arguments_and_open_file(int ac, char **av, int *fd)
 static int	validate_and_init_map(int fd, t_data *map_struct)
 {
 	if ( validate_inputs(2, map_struct, fd))
-		return (close(fd), free_all(map_struct, 0), 1);
+		return (close(fd),  cleanup(map_struct, 0), 1);
 	close(fd);
-	free_all(map_struct, 1);
+	 cleanup(map_struct, 1);
 	player_position(map_struct, 0, 0);
-	check_map(map_struct);
+	validate_map(map_struct);
 	return (0);
 }
 
 static int	run_game(t_data *map_struct)
 {
 	map_struct->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", 0);
-	mlx_loop_hook(map_struct->mlx, &start_drawing, map_struct);
-	mlx_loop_hook(map_struct->mlx, &start_key_hook, map_struct);
+	mlx_loop_hook(map_struct->mlx, &render_scene, map_struct);
+	mlx_loop_hook(map_struct->mlx, &init_input_handler, map_struct);
 	mlx_loop(map_struct->mlx);
-	free_all(map_struct, 0);
+	 cleanup(map_struct, 0);
 	return (0);
 }
 

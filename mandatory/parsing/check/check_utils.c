@@ -6,13 +6,13 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 20:10:05 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 21:32:56 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 22:12:29 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-char	**copy_arr(char **array)
+char	**duplicate_array(char **array)
 {
 	int		i;
 	int		y;
@@ -30,9 +30,9 @@ char	**copy_arr(char **array)
 	return (arr);
 }
 
-void	put_err(char *str, t_data *s_map)
+void	error_exit(char *str, t_data *s_map)
 {
-	free_all(s_map, 0);
+	 cleanup(s_map, 0);
 	print_str_fd(str, 2);
 	exit(EXIT_FAILURE);
 }
