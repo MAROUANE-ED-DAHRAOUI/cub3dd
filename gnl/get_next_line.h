@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: eel-ansa <eel-ansa@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/17 00:00:20 by eel-ansa          #+#    #+#             */
-/*   Updated: 2024/11/11 10:58:36 by eel-ansa         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
@@ -18,7 +6,6 @@
 # endif
 
 # include "../mandatory/include/cub3d.h"
-# include "../bonus/include/cub3d.h"
 # include <limits.h>
 # include <stdio.h>
 # include <stdlib.h>

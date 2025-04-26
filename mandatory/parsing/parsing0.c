@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing0.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kadam <kadam@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/19 16:24:38 by kadam             #+#    #+#             */
-/*   Updated: 2024/10/19 18:10:43 by kadam            ###   ########.fr       */
+/*   Created: 2025/04/26 18:28:22 by med-dahr          #+#    #+#             */
+/*   Updated: 2025/04/26 18:30:44 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	read_file(int fd, t_helper *helper, int x)
+int	read_file(int fd, t_helper *helper, int isgood)
 {
 	while (helper->line != NULL)
 	{
@@ -24,7 +24,7 @@ int	read_file(int fd, t_helper *helper, int x)
 		}
 		else
 		{
-			x = 1;
+			isgood = 1;
 			helper->res = process_line(helper->trim_line, &helper->ptr_line,
 					helper->find);
 			free(helper->trim_line);
@@ -36,7 +36,7 @@ int	read_file(int fd, t_helper *helper, int x)
 		free(helper->line);
 		helper->line = get_next_line(fd);
 	}
-	if (x == 0)
+	if (isgood == 0)
 		return (free(helper->line), ft_putstrn_fd("Error: Empty file", 2), 1);
 	return (0);
 }

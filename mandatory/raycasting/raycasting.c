@@ -3,32 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ansa <eel-ansa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 13:42:02 by eel-ansa          #+#    #+#             */
-/*   Updated: 2024/11/11 17:09:46 by eel-ansa         ###   ########.fr       */
+/*   Created: 2025/04/26 16:28:44 by med-dahr          #+#    #+#             */
+/*   Updated: 2025/04/26 17:16:59 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-double	distance_hrz(t_data *data, t_dis_h *dis_h, double angle)
+void	init_hrz_intersection(t_data *data, t_dis_h *dis_h, double angle, double *ya)
 {
-	double	hdis;
-	double	ya;
-
 	if (angle >= M_PI)
 	{
 		dis_h->y_h = floor(data->player.py / SIZE) * SIZE - 0.000001;
-		ya = -SIZE;
+		*ya = -SIZE;
 	}
 	else
 	{
 		dis_h->y_h = floor((data->player.py) / SIZE) * SIZE + SIZE;
-		ya = SIZE;
+		*ya = SIZE;
 	}
 	dis_h->x_h = ((dis_h->y_h - data->player.py) / tan(angle))
 		+ data->player.px;
+}
+
+void	find_hrz_wall_collision(t_data *data, t_dis_h *dis_h, double angle, double ya)
+{
 	while (1)
 	{
 		if (check_ray(data, dis_h->y_h, dis_h->x_h) == -1)
@@ -36,25 +37,35 @@ double	distance_hrz(t_data *data, t_dis_h *dis_h, double angle)
 		dis_h->y_h += ya;
 		dis_h->x_h += ya / tan(angle);
 	}
+}
+
+double	distance_hrz(t_data *data, t_dis_h *dis_h, double angle)
+{
+	double	hdis;
+	double	ya;
+
+	init_hrz_intersection(data, dis_h, angle, &ya);
+	find_hrz_wall_collision(data, dis_h, angle, ya);
 	hdis = cal_dis(data->player.px, data->player.py, dis_h->x_h, dis_h->y_h);
 	return (hdis);
 }
 
-double	distance_vrt(t_data *data, t_dis_v *dis_v, double angle)
+static void	calculate_initial_x(t_data *data, t_dis_v *dis_v, double angle, double *xa)
 {
-	double	vdis;
-	double	xa;
-
 	if (angle > M_PI_2 && angle < M_PI_2 * 3)
 	{
 		dis_v->x_v = floor(data->player.px / SIZE) * SIZE - 0.000001;
-		xa = -SIZE;
+		*xa = -SIZE;
 	}
 	else
 	{
 		dis_v->x_v = floor(data->player.px / SIZE) * SIZE + SIZE;
-		xa = SIZE;
+		*xa = SIZE;
 	}
+}
+
+static void	cast_vertical_ray(t_data *data, t_dis_v *dis_v, double angle, double xa)
+{
 	dis_v->y_v = data->player.py + (dis_v->x_v - data->player.px) * tan(angle);
 	while (1)
 	{
@@ -63,32 +74,64 @@ double	distance_vrt(t_data *data, t_dis_v *dis_v, double angle)
 		dis_v->x_v += xa;
 		dis_v->y_v += xa * tan(angle);
 	}
+}
+
+double	distance_vrt(t_data *data, t_dis_v *dis_v, double angle)
+{
+	double	vdis;
+	double	xa;
+
+	calculate_initial_x(data, dis_v, angle, &xa);
+	cast_vertical_ray(data, dis_v, angle, xa);
 	vdis = cal_dis(data->player.px, data->player.py, dis_v->x_v, dis_v->y_v);
 	return (vdis);
 }
 
-double	cal_distance(t_data *data, t_dis_h *dis_h, t_dis_v *dis_v,
-		double rayangle)
+double calculate_horizontal(t_data *data, t_dis_h *dis_h, double rayangle)
 {
-	double	vdis;
-	double	hdis;
+    return distance_hrz(data, dis_h, rayangle);
+}
 
-	vdis = 0;
-	hdis = 0;
-	hdis = distance_hrz(data, dis_h, rayangle);
-	vdis = distance_vrt(data, dis_v, rayangle);
-	if (vdis < hdis && vdis > 0)
-	{
-		dis_h->inter_type_h = 'N';
-		dis_v->inter_type_v = 'V';
-		return (vdis);
-	}
-	else
-	{
-		dis_v->inter_type_v = 'N';
-		dis_h->inter_type_h = 'H';
-		return (hdis);
-	}
+double calculate_vertical(t_data *data, t_dis_v *dis_v, double rayangle)
+{
+    return distance_vrt(data, dis_v, rayangle);
+}
+
+double determine_shortest(t_dis_h *dis_h, t_dis_v *dis_v, double vdis, double hdis)
+{
+    if (vdis < hdis && vdis > 0)
+    {
+        dis_h->inter_type_h = 'N';
+        dis_v->inter_type_v = 'V';
+        return (vdis);
+    }
+    else
+    {
+        dis_v->inter_type_v = 'N';
+        dis_h->inter_type_h = 'H';
+        return (hdis);
+    }
+}
+
+double cal_distance(t_data *data, t_dis_h *dis_h, t_dis_v *dis_v, double rayangle)
+{
+    double vdis = calculate_vertical(data, dis_v, rayangle);
+    double hdis = calculate_horizontal(data, dis_h, rayangle);
+    return determine_shortest(dis_h, dis_v, vdis, hdis);
+}
+
+void	init_raycasting(t_data *data, double *rayangle, double *angle, t_rays **rays)
+{
+	*rayangle = data->player.angle - FOV / 2;
+	*angle = FOV / WIDTH;
+	*rays = malloc(sizeof(t_rays) * WIDTH);
+}
+
+void	calculate_ray(t_data *data, t_rays *ray, double rayangle, double *dis)
+{
+	*dis = cal_distance(data, &ray->dis_h, &ray->dis_v, rayangle);
+	*dis = *dis * cos(data->player.angle - rayangle);
+	ray->rayangle = rayangle;
 }
 
 void	start_raycasting(t_data *data, int i, double dis)
@@ -98,17 +141,12 @@ void	start_raycasting(t_data *data, int i, double dis)
 	double	line_height;
 	t_rays	*rays;
 
-	rayangle = data->player.angle - FOV / 2;
-	angle = FOV / WIDTH;
-	line_height = 0;
-	rays = malloc(sizeof(t_rays) * WIDTH);
+	init_raycasting(data, &rayangle, &angle, &rays);
 	while (i < WIDTH)
 	{
 		rayangle = ft_normalize(rayangle);
-		dis = cal_distance(data, &rays[i].dis_h, &rays[i].dis_v, rayangle);
-		dis = dis * cos(data->player.angle - rayangle);
+		calculate_ray(data, &rays[i], rayangle, &dis);
 		line_height = (SIZE / dis) * (WIDTH / 2) / tan(FOV / 2);
-		rays[i].rayangle = rayangle;
 		draw_3d(data, line_height, i, rays[i]);
 		rayangle += angle;
 		i++;
