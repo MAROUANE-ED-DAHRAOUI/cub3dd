@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:16:31 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 22:09:40 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 23:06:04 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	 get_texture_index(t_dis_h dis_h, t_dis_v dis_v, double rayangle)
 {
 	if (dis_v.inter_type_v == 'V')
 		return (handle_vertical_case(rayangle));
-	else if (dis_h.inter_type_h == 'H')
+	else if (dis_h.wall_type == 'H')
 		return (handle_horizontal_case(rayangle));
 	return (-1);
 }
@@ -96,7 +96,7 @@ double	calculate_vertical_tex_x(t_data *data, t_rays rays, int texture_index)
 
 double	calculate_tex_x(t_data *data, t_rays rays, int texture_index)
 {
-	if (rays.dis_h.inter_type_h == 'H')
+	if (rays.dis_h.wall_type == 'H')
 		return calculate_horizontal_tex_x(data, rays, texture_index);
 	else if (rays.dis_v.inter_type_v == 'V')
 		return calculate_vertical_tex_x(data, rays, texture_index);

@@ -6,7 +6,7 @@
 /*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 16:28:44 by med-dahr          #+#    #+#             */
-/*   Updated: 2025/04/26 22:20:50 by med-dahr         ###   ########.fr       */
+/*   Updated: 2025/04/26 23:06:04 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,14 +101,14 @@ double determine_shortest(t_dis_h *dis_h, t_dis_v *dis_v, double vdis, double hd
 {
     if (vdis < hdis && vdis > 0)
     {
-        dis_h->inter_type_h = 'N';
+        dis_h->wall_type = 'N';
         dis_v->inter_type_v = 'V';
         return (vdis);
     }
     else
     {
         dis_v->inter_type_v = 'N';
-        dis_h->inter_type_h = 'H';
+        dis_h->wall_type = 'H';
         return (hdis);
     }
 }

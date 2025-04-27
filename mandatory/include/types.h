@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eel-ansa <eel-ansa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: med-dahr <med-dahr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 12:58:48 by eel-ansa          #+#    #+#             */
-/*   Updated: 2024/11/14 17:50:51 by eel-ansa         ###   ########.fr       */
+/*   Created: 2025/04/27 08:40:59 by med-dahr          #+#    #+#             */
+/*   Updated: 2025/04/27 08:41:16 by med-dahr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_dis_h
 {
 	double			x_h;
 	double			y_h;
-	char			inter_type_h;
+	char			wall_type;
 }					t_dis_h;
 
 typedef struct s_dis_v
